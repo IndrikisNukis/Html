@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dzimšanas diena</title>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; line-height: 1.6; }
+        .instrukcija { color: #555; font-size: 0.9em; font-style: italic; margin-top: -5px; margin-bottom: 10px; }
+        input[type="text"] { padding: 5px; font-size: 16px; width: 200px; }
+        input[type="button"] { padding: 8px 15px; font-size: 16px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 4px; }
+        input[type="button"]:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+<h1>Gaidot dzimšanas dienu..</h1>
+<hr>
+
+<form name="dzdForma" onsubmit="return false;">
+    <p><strong>Ievadi pilnu datumu, kad Tev būs tuvākā dzimšanas diena:</strong></p>
+    
+    <label for="gads">Gads:</label><br>
+    <input type="text" name="gads" id="gads" placeholder="Piemēram, 2026"><br>
+    <div class="instrukcija">Jāievada tikai skaitlis (četri cipari).</div>
+    
+    <label for="menesis">Mēnesis:</label><br>
+    <input type="text" name="menesis" id="menesis" placeholder="Piemēram, 5"><br>
+    <div class="instrukcija">Jāievada mēneša kārtas skaitlis no 1 līdz 12 (piemēram, maijam raksti 5, nevis "maijs").</div>
+    
+    <label for="datums">Diena:</label><br>
+    <input type="text" name="datums" id="datums" placeholder="Piemēram, 9"><br>
+    <div class="instrukcija">Jāievada tikai datuma cipars no 1 līdz 31 (raksti parastu ciparu, piemēram, 9 vai 25, bez punkta).</div>
+    <br>
+    
+    <input type="button" name="poga" value="Aprēķināt dienu skaitu līdz dzimšanas dienai" onclick="dienas();"><br><br>
+
+    <h3>Līdz svētkiem atlikušas <input type="text" name="dienas" id="rezultats" readonly style="width: 60px; text-align: center; font-weight: bold;"> dienas : ))</h3>
+</form>
+
+<script>
+function dienas() {
+    // Iegūst vērtības no laukiem un pārvērš par veseliem skaitļiem
+    let gads = parseInt(document.getElementById("gads").value);
+    let menesis = parseInt(document.getElementById("menesis").value);
+    let diena = parseInt(document.getElementById("datums").value);
+
+    // Pārbauda, vai visi lauki ir aizpildīti ar skaitļiem
+    if (isNaN(gads) || isNaN(menesis) || isNaN(diena)) {
+        alert("Lūdzu, aizpildi visus laukus ar pareiziem skaitļiem!");
+        document.getElementById("rezultats").value = "?";
+        return;
+    }
+
+    // Pārbauda mēneša un dienu loģiskos diapazonus
+    if (menesis < 1 || menesis > 12 || diena < 1 || diena > 31) {
+        alert("Pārliecinies, ka mēnesis ir starp 1-12 un diena starp 1-31!");
+        document.getElementById("rezultats").value = "?";
+        return;
+    }
+
+    // Izveido dzimšanas dienas datumu (JavaScript mēneši sākas no 0, tāpēc menesis - 1)
+    let dzDiena = new Date(gads, menesis - 1, diena);
+    
+    // Iegūst šodienas datumu un anulē stundas/minūtes precīzam dienu aprēķinam
+    let sodien = new Date();
+    sodien.setHours(0,0,0,0);
+
+    // Aprēķina laika starpību milisekundēs
+    let starpibaMs = dzDiena.getTime() - sodien.getTime();
+    
+    // Pārvērš milisekundes dienās
+    let dienuSkaits = Math.ceil(starpibaMs / (1000 * 60 * 60 * 24));
+
+    if (dienuSkaits >= 0) {
+        document.getElementById("rezultats").value = dienuSkaits;
+    } else {
+        document.getElementById("rezultats").value = "0";
+        alert("Norādītais datums jau ir pagājis šajā gadā!");
+    }
+}
+</script>
+
+</body>
+</html>

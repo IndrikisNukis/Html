@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Datu apjoma kalkulators (Baiti)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        input[type="text"] { padding: 5px; font-size: 16px; width: 100px; margin: 5px 0; }
+        label { font-weight: bold; }
+        .izvele { margin: 15px 0; }
+    </style>
+    <script>
+     function notiritLaukus(){
+         document.getElementById("sekundes").value = "";
+         document.getElementById("atbilde").value = "";
+     }  
+    </script>
+</head>
+<body>
+    <h2>Datu lejupielādes apjoma aprēķins</h2>
+    <form onsubmit="return false;">
+        <label for="sekundes">Ievadiet laiku sekundēs:</label><br>
+        <input type="text" id="sekundes" name="sekundes" onclick="notiritLaukus()"> sekundes, ja interneta ātrums ir 25Mbps.<br><br>
+       
+        <div class="izvele">
+            <p><strong>Izvēlieties mērvienību rezultātam:</strong></p>
+            <input type="radio" id="kib" name="meris" onclick="document.getElementById('atbilde').value = (3051.757 * Number(document.getElementById('sekundes').value)).toFixed(2)">
+            <label for="kib">KiB (KibiBaiti)</label>
+            <br>
+            <input type="radio" id="kb" name="meris" onclick="document.getElementById('atbilde').value = (3125 * Number(document.getElementById('sekundes').value)).toFixed(2)">
+            <label for="kb">KB (KiloBaiti)</label>
+        </div>
+        <br>
+       
+        <label for="atbilde">Aprēķinātā atbilde:</label><br>
+        <input type="text" id="atbilde" name="atbilde" readonly>
+    </form>
+</body>
+</html>

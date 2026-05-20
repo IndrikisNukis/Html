@@ -1,0 +1,39 @@
+
+body {
+    background-image: url('../images/fons.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.w3-top {
+    z-index: 1000;
+}
+
+.satura-konteiners {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 40px;
+    margin: 80px auto 40px auto;
+    border-radius: 10px;
+    max-width: 900px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.5);
+}
+
+.satura-konteiners img, .satura-konteiners video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+a.bultina-saite img {
+    width: 50px;
+    transition: transform 0.2s;
+}
+a.bultina-saite img:hover {
+    transform: scale(1.1);
+}
